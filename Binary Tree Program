@@ -1,0 +1,118 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct tree{
+    int data;
+    struct tree *llink;
+    struct tree *rlink;
+    };
+    struct tree *root=NULL;
+    int count;
+void insert();
+void inorder(struct tree *);
+void postorder(struct tree *);
+void preorder(struct tree *);
+int main()
+{
+    int ch;
+    printf("The operations are\n1.Insert\n2.Preorder\n3.Inorder\n4.Postorder\n5.Total nodes\n6.Exit\n");
+    for(;;){
+    printf("\nEnter the choice: ");
+    scanf("%d",&ch);
+    switch(ch){
+    case 1:insert();
+            break;
+    case 2:printf("The preorder display is\n");
+            preorder(root);
+            break;
+    case 3:printf("The inorder display is\n");
+            inorder(root);
+            break;
+    case 4:printf("The postorder display is\n");
+            postorder(root);
+            break;
+    case 5:printf("The total elements are %d",count);
+            break;
+    case 6: exit(0);
+    }
+
+}
+}
+void insert(){
+    int ele;
+    struct tree *t,*curr,*p;
+    t=(struct tree *)malloc(sizeof(struct tree));
+printf("Enter the element : ");
+scanf("%d",&ele);
+    t->data=ele;
+    t->llink=NULL;
+    t->rlink=NULL;
+    if(root==NULL){
+        root=t;
+    }
+    else{
+        curr=root;
+        while(curr){
+                p=curr;
+            if(t->data>curr->data){
+                curr=curr->rlink;
+            }
+            else{
+                curr=curr->llink;
+            }
+        }
+        if(t->data>p->data){
+            p->rlink=t;
+        }
+        else{
+            p->llink=t;
+        }
+    }
+
+printf("Element %d added Succesfully !\n",ele);
+count++;
+}
+
+
+
+void preorder(struct tree *r){
+    if(root==NULL){
+        printf("The tree is empty");
+    }
+    else{
+        printf("%d\t",r->data);
+        if(r->llink){
+        preorder(r->llink);}
+        if(r->rlink){
+        preorder(r->rlink);}
+
+    }
+
+
+
+
+
+}
+void inorder(struct tree *r){
+     if(root==NULL){
+        printf("The tree is empty");}
+        else{
+                  if(r->llink){
+            inorder(r->llink);}
+            printf("%d\t",r->data);
+                    if(r->rlink){
+            inorder(r->rlink);}
+        }
+
+}
+void postorder(struct tree *r){
+     if(root==NULL){
+        printf("The tree is empty");}
+        else{
+                  if(r->llink){
+                postorder(r->llink);}
+                        if(r->rlink){
+                postorder(r->rlink);}
+        printf("%d\t",r->data);
+
+}
+     }
